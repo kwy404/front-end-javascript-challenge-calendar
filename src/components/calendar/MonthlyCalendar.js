@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getWeekdaysDescriptions } from '../../helpers/calendar';
@@ -39,7 +39,6 @@ function MonthlyCalendar({ dates, month, reminders, editReminder, newReminder })
     if(taskAtual){
       setOpenModal(true);
       setEditTask(taskAtual)
-      saveLocalStorage()
     }
   }
   const editTaskModal = (taskA, title) => {
@@ -52,10 +51,12 @@ function MonthlyCalendar({ dates, month, reminders, editReminder, newReminder })
       setTask([])
       setTimeout(() => {
         setTask(old)
-        saveLocalStorage()
       }, 1);
     }
   }
+  useEffect(() => {
+    saveLocalStorage()
+  })
   const newTask = ({index, title = `(Sem titulo)`}) => {
     setHoursI(index)
     const taskA = {
