@@ -7,31 +7,36 @@ import { DatePropType, DateReminderPropType } from '../shared/prop-types/date';
 import { getFormattedDateReminders } from '../../selectors/ui/calendar';
 import { editReminder, newReminder } from '../../actions/ui/reminder';
 import MonthlyCalendarDateReminder from './MonthlyCalendarDateReminder';
+import Tooltip from '@material-ui/core/Tooltip';
 
 function MonthlyCalendarDate({ date, reminders, editReminder, newReminder, setDate, dateT }) {
+  const diaAtual = new Date().getDate()
+  const mesAtual = new Date().getMonth() + 1
   return (
+    <Tooltip 
+      placement="top"
+      title={`${date.key.split("-")[2]}/${date.key.split("-")[1]}/${date.key.split("-")[0]}`}>
       <span
-        onClick={() => setDate(date.key)}
+        style={{
+          opacity: date.trailing
+          || parseInt(date.key.split("-")[2]) < diaAtual && mesAtual >= parseInt(date.key.split("-")[1])
+          ? `0.6` : `1`
+        }}
+        onClick={() => 
+          {
+            if(parseInt(date.key.split("-")[2]) < diaAtual && mesAtual >= parseInt(date.key.split("-")[1])){
+              return
+            }
+            setDate(date.key)
+          }}
         className={`${(dateT == date.key ? 'active' : '')}`}
         key={date.key}
       >
       <div className="hover">
         {date.text}
       </div>
-
-      {/* <ol>
-        {reminders.map((reminder) => (
-          <MonthlyCalendarDateReminder
-            key={reminder.id}
-            reminder={reminder}
-            onClick={(e) => {
-              e.stopPropagation();
-              editReminder(reminder);
-            }}
-          />
-        ))}
-      </ol> */}
     </span>
+    </Tooltip>
   );
 }
 

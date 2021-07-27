@@ -17,11 +17,11 @@ describe('helpers::calendar', () => {
   test('getWeekDaysDescriptions', () => {
     expect(getWeekdaysDescriptions()).toEqual([
       { long: 'Domingo', narrow: 'D', short: 'Dom' },
-      { long: 'Segunda', narrow: 'S', short: 'Seg' },
-      { long: 'Terça', narrow: 'T', short: 'Ter' },
+      { long: 'Segunda-feira', narrow: 'S', short: 'Seg' },
+      { long: 'Terça-feira', narrow: 'T', short: 'Ter' },
       { long: 'Quarta-feira', narrow: 'Q', short: 'Qua' },
-      { long: 'Quinta', narrow: 'Q', short: 'Qui' },
-      { long: 'Sexta', narrow: 'S', short: 'Sex' },
+      { long: 'Quinta-feira', narrow: 'Q', short: 'Qui' },
+      { long: 'Sexta-feira', narrow: 'S', short: 'Sex' },
       { long: 'Sábado', narrow: 'S', short: 'Sáb' },
     ]);
   });

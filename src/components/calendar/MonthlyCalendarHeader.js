@@ -1,16 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Tooltip from '@material-ui/core/Tooltip';
 
 function MonthlyCalendarHeader({ weekDays }) {
   return (
     <>
       {weekDays.map((weekDay, i) => (
+        <Tooltip 
+        placement="top"
+        title={weekDay.long}>
         <span
           key={weekDay} 
           key={i}
         >
+       
           { weekDay.narrow || <span style={{opacity: `0`}}>*</span> }
         </span>
+        </Tooltip>
       ))}
     </>
   );

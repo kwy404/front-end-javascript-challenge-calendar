@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { DatePropType } from '../shared/prop-types/date';
 import MonthlyCalendarDate from './MonthlyCalendarDate';
 import * as s from './styleMonthCalendar';
+import Tooltip from '@material-ui/core/Tooltip';
 
 function MonthlyCalendarGrid({ dates, setDate, dateT }) {
   function separar(base, maximo = 7) {
