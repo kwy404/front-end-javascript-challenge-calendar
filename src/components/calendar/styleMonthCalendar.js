@@ -228,7 +228,7 @@ container.center.main.grid = styled.div`
     -webkit-flex-direction: column;
     flex-direction: column;
     position: relative;
-    height: 100vh;
+    height: calc(100vh - 27px);
 `
 
 container.center.main.grid.header = styled.div`
@@ -314,6 +314,7 @@ time.times.time = styled.div`
     box-sizing: border-box;
     min-width: 48px;
     padding: 4px;
+    margin-left: 3px;
     white-space: nowrap;
     color: #70757a;
     font-size: 10px;
@@ -526,10 +527,46 @@ presentati.row = styled.div`
         position: absolute;
         width: 100vw;
         height: 48px;
+        margin-top: -19px;
+        :hover{
+            background: rgb(63 81 181 / 18%);
+            -webkit-box-shadow: 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%), 0px 5px 5px -3px rgb(0 0 0 / 20%);
+            box-shadow: 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%), 0px 5px 5px -3px rgb(0 0 0 / 20%);
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+    }
+    .hoursA{
+        width: 100vw;
+        position: absolute;
+        background: #ea4335;
+        height: 2px;
+        z-index: 10;
+    }
+    .hoursA::after{
+        content: '';
+        background: #ea4335;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        content: "";
+        position: absolute;
+        height: 12px;
+        margin-left: -6.5px;
+        margin-top: -5px;
+        width: 12px;
+        z-index: 505;
+        float: left;
+        left: 0px;
     }
 `
 
 export const tarefa = styled.div`
+    :hover{
+        -webkit-box-shadow: 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%), 0px 5px 5px -3px rgb(0 0 0 / 20%);
+         box-shadow: 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%), 0px 5px 5px -3px rgb(0 0 0 / 20%);
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
     user-select: none;
     border-radius: 6px;
     position: absolute;
@@ -544,6 +581,11 @@ export const tarefa = styled.div`
         color: white;
         padding: 10px;
         margin-top: 5px;
+    }
+    p{
+        color: white;
+        margin-top: -2px;
+        margin-left: 10px;
     }
 `
 

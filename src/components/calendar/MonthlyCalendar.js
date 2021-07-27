@@ -12,6 +12,7 @@ import { TaskModal } from "../task"
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import { colors } from "./colorsTask";
+import { hoursT } from "./hoursTask";
 import Tooltip from '@material-ui/core/Tooltip';
 import CheckIcon from '@material-ui/icons/Check';
 import EditIcon from '@material-ui/icons/Edit';
@@ -25,6 +26,8 @@ function MonthlyCalendar({ dates, month, reminders, editReminder, newReminder })
   document.addEventListener('contextmenu', event => event.preventDefault());
   const localS = window.localStorage.getItem(`tasks`) ? JSON.parse(window.localStorage.getItem(`tasks`)) : [];
   const arrayDate = new Date().toLocaleDateString().split("/")
+  const dateB = new Date();
+  const horasA = dateB.getHours();
   const [dateT, setDate] = useState(`${arrayDate[2]}-${arrayDate[1]}-${arrayDate[0]}`);
   const [tasks, setTask] = useState(localS || [])
   const [hoursI, setHoursI] = useState(null)
@@ -68,15 +71,12 @@ function MonthlyCalendar({ dates, month, reminders, editReminder, newReminder })
       editTask(taskA);
       setTask(oldTask);
       saveLocalStorage()
-    } else{
-      editTask(found)
-      setTask(found);
     }
   }
   const openTaskMenu = (e, taskA) => {
     e.preventDefault();
     if(e){
-      let obj = {x: e.clientX, y: e.clientY, task: taskA}
+      let obj = {x: e.clientX, y: e.clientY, task: taskA, down: (window.screen.availHeight - (e.clientY + 319)) <= 0}
       setMenuItem(obj)
     }
   }
@@ -92,6 +92,18 @@ function MonthlyCalendar({ dates, month, reminders, editReminder, newReminder })
       }
     }, 200);
   }
+  function parseTime(time) {    
+    let timeInt = parseInt(time);
+    let minutes = time.substring(3,5);
+
+    // you could then add or subtract time here as needed
+
+    if(time > '12:00') {
+         return `${timeInt}:${minutes}pm`;
+    } else {
+         return `${timeInt}:${minutes}am`;
+    }
+}
   return (
     <s.container>
       <s.container.left>
@@ -147,126 +159,13 @@ function MonthlyCalendar({ dates, month, reminders, editReminder, newReminder })
                         GMT-03
                         </span>
                       </s.time.times.time>
+                      { hoursT.map((item, index) => (
                       <s.time.times.time>
                         <span>
-                        12 AM
+                        { parseTime(item)}
                         </span>
                       </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        1 AM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        2 AM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        3 AM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        4 AM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        5 AM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        6 AM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        7 AM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        8 AM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        9 AM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        10 AM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        11 AM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        12 PM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        1 PM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        2 PM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        3 PM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        4 PM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        5 PM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        6 PM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        7 PM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        8 PM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        9 PM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        10 PM
-                        </span>
-                      </s.time.times.time>
-                      <s.time.times.time>
-                        <span>
-                        11 PM
-                        </span>
-                      </s.time.times.time>
+                      ))}
                     </s.time.times>
                   </s.time>
                   <s.presentati>
@@ -277,7 +176,13 @@ function MonthlyCalendar({ dates, month, reminders, editReminder, newReminder })
                       }}
                       key={i}
                       >
-                        <div 
+                        { horasA == i &&
+                          <div className="hoursA" />
+                        }
+                        <div
+                        style={{
+                          cursor: `pointer`
+                        }} 
                         onClick={() => newTask({index})}
                         className="cell"/>
                         { tasks.map((task, indexT) => (
@@ -292,6 +197,9 @@ function MonthlyCalendar({ dates, month, reminders, editReminder, newReminder })
                           <span>
                             {task.title}
                           </span>
+                          <p>
+                            { parseTime(hoursT[task.index])} até {parseTime(hoursT[task.index + 1])}
+                          </p>
                         </s.tarefa>
                         ))}
                       </s.presentati.row>
@@ -327,7 +235,8 @@ function MonthlyCalendar({ dates, month, reminders, editReminder, newReminder })
           <s.menuItem
           style={{
             top: `${menuItem.y}px`,
-            left: `${menuItem.x}px`
+            left: `${menuItem.x}px`,
+            marginTop: `${(menuItem.down ? `-175px`: `0px`)}`
           }}
           >
           <Button 
