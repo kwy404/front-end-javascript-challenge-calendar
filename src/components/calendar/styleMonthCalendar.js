@@ -534,7 +534,7 @@ export const tarefa = styled.div`
     border-radius: 6px;
     position: absolute;
     left: 26px;
-    top: 0px;
+    top: -18px;
     height: 46px;
     z-index: 5;
     background-color: rgb(3,155,229);
